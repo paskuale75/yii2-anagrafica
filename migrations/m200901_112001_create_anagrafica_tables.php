@@ -1,6 +1,6 @@
 <?php
 
-
+namespace paskuale75\anagrafica\migrations;
 
 use yii\db\Migration;
 
