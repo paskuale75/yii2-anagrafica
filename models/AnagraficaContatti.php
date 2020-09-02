@@ -3,6 +3,7 @@
 namespace paskuale75\anagrafica\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "tbl_anagrafica_contatti".
@@ -37,7 +38,7 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
             [['valore', 'descri'], 'string', 'max' => 45],
             [['anagrafica_id'], 'exist',
                 'skipOnError' => true,
-                'targetClass' => Anagrafica::className(),
+                'targetClass' => Anagrafica::class,
                 'targetAttribute' => ['anagrafica_id' => 'id']]
         ];
     }
@@ -67,7 +68,7 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
         return $this->hasOne(Anagrafica::class,['anagrafica_id'=>'anagrafica_id']);
     }
     public function getTipo(){
-        return $this->hasOne(AnagraficaContattiTipo::className(),['contatto_tipo_id'=>'contatto_tipo_id']);
+        return $this->hasOne(AnagraficaContattiTipo::class,['contatto_tipo_id'=>'contatto_tipo_id']);
     }
 
 

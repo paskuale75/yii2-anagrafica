@@ -1,6 +1,7 @@
 <?php
 namespace paskuale75\anagrafica\migrations;
 
+use Yii;
 use yii\db\Migration;
 
 class m200901_120001_indirizzi_tipo_tables  extends Migration
