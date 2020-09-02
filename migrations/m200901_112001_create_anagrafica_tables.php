@@ -2,6 +2,7 @@
 
 namespace paskuale75\anagrafica\migrations;
 
+use Yii;
 use yii\db\Migration;
 
 class m200901_112001_create_anagrafica_tables extends Migration

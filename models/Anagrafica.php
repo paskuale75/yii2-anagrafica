@@ -4,7 +4,7 @@ namespace paskuale75\anagrafica\models;
 
 use Yii;
 use yii\base\Model;
-use common\modules\mensa\modules\users\models\User;
+use paskuale75\anagrafica\Module
 use yii\helpers\ArrayHelper;
 
 /**
@@ -113,19 +113,19 @@ class Anagrafica extends \yii\db\ActiveRecord
 
 
     public function getUser(){
-        return $this->hasOne(User::className(),['id' => 'user_id']);
+        return $this->hasOne(Module::getInstance()->UserClass,['id' => 'user_id']);
     }
 
     public function getNascita(){
-        return $this->hasOne(AnagraficaNascita::className(),['anagrafica_id'=>'id']);
+        return $this->hasOne(AnagraficaNascita::class,['anagrafica_id'=>'id']);
     }
 
     public function getContatti(){
-        return $this->hasMany(AnagraficaContatti::className(),['anagrafica_id'=>'id']);
+        return $this->hasMany(AnagraficaContatti::class,['anagrafica_id'=>'id']);
     }
 
     public function getIndirizzi(){
-        return $this->hasMany(AnagraficaIndirizzi::className(),['anagrafica_id'=>'id']);
+        return $this->hasMany(AnagraficaIndirizzi::class,['anagrafica_id'=>'id']);
     }
 
 
