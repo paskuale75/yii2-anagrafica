@@ -3,7 +3,6 @@
 namespace paskuale75\anagrafica\models;
 
 use Yii;
-use yii\base\Model;
 use paskuale75\anagrafica\Module;
 use yii\helpers\ArrayHelper;
 
