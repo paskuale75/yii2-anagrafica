@@ -1,5 +1,5 @@
 {
-    "name": "paskuale75/anagrafica",
+    "name": "paskuale75/yii2-anagrafica",
     "description": "All data for manage name, surname, city, address, etc...",
     "type": "yii2-extension",
     "license": "MIT",
@@ -29,7 +29,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "paskuale75\\yii2-anagrafica\\": ""
+            "paskuale75\\anagrafica\\": ""
         }
     }
 }
