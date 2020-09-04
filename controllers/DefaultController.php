@@ -6,9 +6,8 @@ use CodiceFiscale\Calculator;
 use CodiceFiscale\Subject;
 use common\modules\mensa\models\Alunno;
 use common\modules\mensa\models\Genitore;
-use common\modules\mensa\modules\anagrafica\models\Anagrafica;
-use common\modules\mensa\modules\anagrafica\models\Comuni;
 use Faker\Provider\DateTime;
+use paskuale75\anagrafica\models\Anagrafica;
 use Yii;
 use yii\db\Query;
 use yii\helpers\Json;
@@ -30,28 +29,7 @@ class DefaultController extends Controller
     }
 
 
-    /**
-     * Your controller action to fetch the list
-     */
-    public function actionComuniList($q = null) {
-        $query = new Query;
-        $tableName = Comuni::tableName();
-
-        $query->select('idgen_comune, comune, provincia')
-            ->from($tableName)
-            ->where('comune LIKE "%' . $q .'%"')
-            ->orderBy('comune');
-        $command = $query->createCommand();
-        $data = $command->queryAll();
-        $out = [];
-        foreach ($data as $d) {
-            $out[] = [
-                'id'=>$d['idgen_comune'],
-                'value' => $d['comune'].' ('.$d['provincia'].')'
-            ];
-        }
-        echo Json::encode($out);
-    }
+    
 
     public function actionGenitoriListConCf($q = null) {
         $query = new Query;
