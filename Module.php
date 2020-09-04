@@ -20,6 +20,10 @@ class Module extends YiiModule implements BootstrapInterface
      */
     public $userClass;
 
+    /**
+     * @var string  yii\db\BaseActiveRecord class name; used as COOMUNI
+     */
+    public $comuniClass;
 
 
     /**
