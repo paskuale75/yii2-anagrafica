@@ -2,6 +2,7 @@
 
 namespace paskuale75\anagrafica\models;
 
+use paskuale75\comuni\models\Citta;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -81,7 +82,7 @@ class AnagraficaNascita extends \yii\db\ActiveRecord
      */
 
     public function getComune(){
-        return $this->hasOne(Comuni::className(),['idgen_comune' => 'comune_hidden']);
+        return $this->hasOne(Citta::class,['istat' => 'comune_hidden']);
     }
     
     public function getComuneNome(){
