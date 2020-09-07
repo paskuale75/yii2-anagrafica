@@ -20,6 +20,8 @@ class Module extends YiiModule implements BootstrapInterface
      */
     public $userClass;
 
+    public $belFioreColumn = 'cod_fisco';
+
 
     /**
      * {@inheritdoc}

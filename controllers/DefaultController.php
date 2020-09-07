@@ -2,16 +2,10 @@
 
 namespace paskuale75\anagrafica\controllers;
 
+
+use Yii;
 use CodiceFiscale\Calculator;
 use CodiceFiscale\Subject;
-use common\modules\mensa\models\Alunno;
-use common\modules\mensa\models\Genitore;
-use Faker\Provider\DateTime;
-use paskuale75\anagrafica\models\Anagrafica;
-use Yii;
-use yii\db\Query;
-use yii\helpers\Json;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 /**
@@ -30,35 +24,37 @@ class DefaultController extends Controller
 
 
 
-    
-    public function actionCalculateCf($flag_nazione=false){
 
-        if($flag_nazione){
+    public function actionCalculateCf($flag_nazione = false)
+    {
+
+        $module = $this->module;
+        $posts = Yii::$app->request->post();
+
+        if ($flag_nazione) {
             $modelName = "Nazione"; //Nazione::class;
-        }else{
+        } else {
             $modelName = Comuni::class;
         }
 
-        $posts = Yii::$app->request->post();
+        
 
         $comune = $modelName::findOne($posts['id_comune']);
 
         //$birthDate = '1975-04-18';
         //$_d = explode('/',$posts['birthDate']); // creo l’oggeto data
         $birthDate = $posts['birthDate'];
-
-
         $gender = strtoupper($posts['gender']);
-        $belfioreCode = $comune['belfiore'];
+        $belfioreCode = $comune[$module->belFioreColumn];
 
         $subject = new Subject(
-            array(
+            [
                 "name" => $posts['name'],
                 "surname" => $posts['surname'],
                 "birthDate" => $birthDate, //"1985-12-10",
                 "gender" => $gender,
                 "belfioreCode" => $belfioreCode
-            )
+            ]
         );
 
         $calculator = new Calculator($subject);
