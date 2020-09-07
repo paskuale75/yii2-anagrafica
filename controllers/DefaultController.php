@@ -29,36 +29,6 @@ class DefaultController extends Controller
     }
 
 
-    
-
-    public function actionGenitoriListConCf($q = null) {
-        $query = new Query;
-        $tableName = Genitore::tableName();
-        $anagraficaTable = Anagrafica::tableName().' anag'; //anag is alias
-
-        $query->select('anag.id, anagrafica_id, genitore_id, anag.ragione_sociale_1, anag.ragione_sociale_2,codfis')
-            ->from($tableName)
-            ->leftJoin($anagraficaTable, 'id = anagrafica_id')
-            ->where(
-                'CONCAT_WS(" ",anag.ragione_sociale_1,anag.ragione_sociale_2)'
-                .' LIKE "%' . $q . '%"'
-            )
-            ->orderBy('anag.ragione_sociale_1');
-        $command = $query->createCommand();
-        $data = $command->queryAll();
-        $out = [];
-        foreach ($data as $d) {
-            $out[] = [
-                'id'=>$d['genitore_id'],
-                'value' => $d['ragione_sociale_1'].' '.$d['ragione_sociale_2'].' - '.$d['codfis']
-            ];
-        }
-        echo Json::encode($out);
-    }
-    
-
-    
-
 
     
     public function actionCalculateCf($flag_nazione=false){
