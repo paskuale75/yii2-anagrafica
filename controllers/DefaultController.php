@@ -1,11 +1,10 @@
 <?php
-
 namespace paskuale75\anagrafica\controllers;
-
 
 use Yii;
 use CodiceFiscale\Calculator;
 use CodiceFiscale\Subject;
+use paskuale75\comuni\models\Citta;
 use yii\web\Controller;
 
 /**
@@ -34,7 +33,7 @@ class DefaultController extends Controller
         if ($flag_nazione) {
             $modelName = "Nazione"; //Nazione::class;
         } else {
-            $modelName = Comuni::class;
+            $modelName = Citta::class;
         }
 
         
