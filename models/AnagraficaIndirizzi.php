@@ -24,6 +24,16 @@ use yii\helpers\ArrayHelper;
  */
 class AnagraficaIndirizzi extends ActiveRecord
 {
+
+    /*
+     * Questo viene usato per selezionare il valore
+     * ma l'id del comune scelto viene memorizzato
+     * in $comune_hidden
+     */
+    public $comunenome;
+
+
+
     /**
      * @inheritdoc
      */
@@ -41,7 +51,7 @@ class AnagraficaIndirizzi extends ActiveRecord
             //[['indirizzo', 'comune_hidden', 'nazione_id', 'indirizzo_tipo_id', 'cab'], 'required'],
             [['indirizzo', 'indirizzo_tipo_id'], 'required'],
             [['nazione_id', 'indirizzo_tipo_id', 'posta', 'anagrafica_id', 'user_id'], 'integer'],
-            [['last_mod'], 'safe'],
+            [['last_mod','comunenome'], 'safe'],
             [['indirizzo'], 'string', 'max' => 100],
             [['comune_hidden'], 'string', 'max' => 65],
             [['cab'], 'string', 'max' => 6],
@@ -61,6 +71,7 @@ class AnagraficaIndirizzi extends ActiveRecord
             'id' => 'ID',
             'indirizzo' => 'Indirizzo',
             'comune_hidden' => 'Comune Hidden',
+            'comunenome' => 'Comune',
             'prov' => 'Prov',
             'nazione_id' => 'Nazione ID',
             'cap' => 'Cap',
@@ -83,7 +94,15 @@ class AnagraficaIndirizzi extends ActiveRecord
     }
 
     public function getTipo(){
-        return $this->hasOne(AnagraficaIndirizziTipo::className(),['id' =>'indirizzo_tipo_id']);
+        return $this->hasOne(AnagraficaIndirizziTipo::class,['id' =>'indirizzo_tipo_id']);
+    }
+
+    public function getComune(){
+        return $this->hasOne(Citta::class,['istat' => 'comune_hidden']);
+    }
+    
+    public function getComuneNome(){
+        return ArrayHelper::getValue($this->comune,'comune');
     }
 
 
