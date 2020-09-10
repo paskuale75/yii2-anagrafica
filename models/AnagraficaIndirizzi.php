@@ -55,6 +55,7 @@ class AnagraficaIndirizzi extends ActiveRecord
             [['indirizzo'], 'string', 'max' => 100],
             [['comune_hidden'], 'string', 'max' => 65],
             [['cab'], 'string', 'max' => 6],
+            [['cab'], 'skipOnEmpty'=> 'true'],
             //prov se vuoto viene impostato 'xx'
             [['prov'], 'default', 'value' => 'xx'], 
             [['cap'], 'string', 'max' => 5],
