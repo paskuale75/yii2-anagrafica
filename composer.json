@@ -9,14 +9,13 @@
             "email": "pellicanipasquale@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.0.0",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap4": "^2.0",
-        "kartik-v/yii2-krajee-base": "@dev",
-        "paskuale75/yii2-comuni-italiani": "@dev",
-        "davidepastore/codice-fiscale":"@dev"
+        "kartik-v/yii2-krajee-base": "*",
+        "paskuale75/yii2-comuni-italiani": "*",
+        "davidepastore/codice-fiscale":"*"
     },
     "config": {
         "process-timeout": 1800,
