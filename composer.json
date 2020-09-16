@@ -15,8 +15,8 @@
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap4": "^2.0",
         "kartik-v/yii2-krajee-base": "@dev",
-        "paskuale75/yii2-comuni-italiani": "dev-master",
-        "davidepastore/codice-fiscale":"dev-master"
+        "paskuale75/yii2-comuni-italiani": "@dev",
+        "davidepastore/codice-fiscale":"@dev"
     },
     "config": {
         "process-timeout": 1800,
