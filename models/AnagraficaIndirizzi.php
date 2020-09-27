@@ -2,6 +2,7 @@
 
 namespace paskuale75\anagrafica\models;
 
+use paskuale75\comuni\models\Citta;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
