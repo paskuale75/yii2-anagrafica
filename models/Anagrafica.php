@@ -33,6 +33,10 @@ class Anagrafica extends \yii\db\ActiveRecord
     const WOMEN_COLOR_CODE = '#E26A6A';
     const MEN_ICON = 'fa fa-male';
     const WOMEN_ICON = 'fa fa-female';
+
+    const RESIDENZA = 5;
+
+
     /**
      * @inheritdoc
      */
@@ -47,14 +51,14 @@ class Anagrafica extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ragione_sociale_1', 'ragione_sociale_2', 'codfis'], 'required','on' => self::SCENARIO_FISICA],
-            [['ragione_sociale_1', 'codiva'], 'required','on' => self::SCENARIO_GIURIDICA],
+            [['ragione_sociale_1', 'ragione_sociale_2', 'codfis'], 'required', 'on' => self::SCENARIO_FISICA],
+            [['ragione_sociale_1', 'codiva'], 'required', 'on' => self::SCENARIO_GIURIDICA],
             [['titoli_id', 'nazione_id', 'user_id'], 'integer'],
-            [['last_mod','ragione_sociale_1', 'ragione_sociale_2','codfis','scenario'], 'safe'],
+            [['last_mod', 'ragione_sociale_1', 'ragione_sociale_2', 'codfis', 'scenario'], 'safe'],
             [['sex'], 'string', 'max' => 1],
             [['ruolo', 'image'], 'string', 'max' => 45],
-            [['codfis'], 'string', 'max' => 16,'on' => self::SCENARIO_FISICA],
-            [['codiva'], 'string', 'max' => 11,'on' => self::SCENARIO_GIURIDICA],
+            [['codfis'], 'string', 'max' => 16, 'on' => self::SCENARIO_FISICA],
+            [['codiva'], 'string', 'max' => 11, 'on' => self::SCENARIO_GIURIDICA],
             [['lang'], 'string', 'max' => 20],
         ];
     }
@@ -64,7 +68,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        switch ($this::getScenario()){
+        switch ($this::getScenario()) {
             default:
                 return [
                     'id' => 'ID',
@@ -102,7 +106,6 @@ class Anagrafica extends \yii\db\ActiveRecord
                 ];
                 break;
         }
-
     }
 
 
@@ -111,54 +114,74 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
 
 
-    public function getUser(){
-        return $this->hasOne(Module::getInstance()->UserClass,['id' => 'user_id']);
+    public function getUser()
+    {
+        return $this->hasOne(Module::getInstance()->UserClass, ['id' => 'user_id']);
     }
 
-    public function getNascita(){
-        return $this->hasOne(AnagraficaNascita::class,['anagrafica_id'=>'id']);
+    public function getNascita()
+    {
+        return $this->hasOne(AnagraficaNascita::class, ['anagrafica_id' => 'id']);
     }
 
-    public function getContatti(){
-        return $this->hasMany(AnagraficaContatti::class,['anagrafica_id'=>'id']);
+    public function getResidenza()
+    {
+        $object = AnagraficaIndirizzi::find()
+            ->joinWith(['tipo it'])
+            ->where([
+                'anagrafica_id' => $this->primaryKey,
+                'it.id' => self::RESIDENZA
+            ])
+            ->orderBy('id DESC')
+            ->limit(1)
+            ->one();
+        return $object;
     }
 
-    public function getIndirizzi(){
-        return $this->hasMany(AnagraficaIndirizzi::class,['anagrafica_id'=>'id']);
+    public function getContatti()
+    {
+        return $this->hasMany(AnagraficaContatti::class, ['anagrafica_id' => 'id']);
+    }
+
+    public function getIndirizzi()
+    {
+        return $this->hasMany(AnagraficaIndirizzi::class, ['anagrafica_id' => 'id']);
     }
 
 
-    public function getFullName(){
+    public function getFullName()
+    {
         $cognome = ucfirst($this->ragione_sociale_1);
         $nome = ucfirst($this->ragione_sociale_2);
-        return $cognome.' '.$nome;
+        return $cognome . ' ' . $nome;
     }
 
-    public function getPivaCf(){
-        $ret[] = ArrayHelper::getValue($this,'codiva', false);
-        $ret[] = ArrayHelper::getValue($this,'codfis', false);
+    public function getPivaCf()
+    {
+        $ret[] = ArrayHelper::getValue($this, 'codiva', false);
+        $ret[] = ArrayHelper::getValue($this, 'codfis', false);
         $filtered = array_filter($ret);
-        $final = implode(' - ',$filtered);
+        $final = implode(' - ', $filtered);
         return $final;
     }
 
 
-    public function getContattiList(){
+    public function getContattiList()
+    {
         $elenco = [];
-        foreach ($this->contatti as $contatto)
-        {
-            $elenco[] = ArrayHelper::getValue($contatto,'tipo.descri').': '.ArrayHelper::getValue($contatto,'valore');
+        foreach ($this->contatti as $contatto) {
+            $elenco[] = ArrayHelper::getValue($contatto, 'tipo.descri') . ': ' . ArrayHelper::getValue($contatto, 'valore');
         }
-        return implode('<br>',$elenco);
+        return implode('<br>', $elenco);
     }
 
-    public function getIndirizziList(){
+    public function getIndirizziList()
+    {
         $elenco = [];
-        foreach ($this->indirizzi as $indirizzo)
-        {
+        foreach ($this->indirizzi as $indirizzo) {
             $tipoI = $indirizzo->tipo->descri;
-            $elenco[] = $tipoI.': '.$indirizzo->indirizzo;
+            $elenco[] = $tipoI . ': ' . $indirizzo->indirizzo;
         }
-        return implode('<br>',$elenco);
+        return implode('<br>', $elenco);
     }
 }
