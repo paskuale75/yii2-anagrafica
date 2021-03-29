@@ -4,6 +4,7 @@ namespace paskuale75\anagrafica\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "tbl_anagrafica_contatti".
@@ -32,10 +33,13 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['valore'], 'required'],
+            //[['valore'], 'required'],
             [['anagrafica_id', 'contatto_tipo_id', 'user_id'], 'integer'],
-            [['last_mod'], 'safe'],
+            [['last_mod','valore','contatto_tipo_id'], 'safe'],
             [['valore', 'descri'], 'string', 'max' => 45],
+            [['valore'], 'myValoreRule','skipOnEmpty'=> false],
+            [['contatto_tipo_id'], 'myContattoTipoRule','skipOnEmpty'=> false],
+            //[['contatto_tipo_id'], 'myValoreRule','skipOnEmpty'=> false],
             [['anagrafica_id'], 'exist',
                 'skipOnError' => true,
                 'targetClass' => Anagrafica::class,
@@ -59,6 +63,21 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
         ];
     }
 
+    public function myValoreRule($attribute,$params)
+    {
+        if(!empty($this->contatto_tipo_id)){
+            if(empty($this->$attribute))
+                $this->addError($attribute, 'Valore non può essere vuoto.');
+        } 
+    }
+
+    public function myContattoTipoRule($attribute,$params)
+    {
+        if(!empty($this->valore)){
+            if(empty($this->attribute))
+                $this->addError($attribute, 'Tipo Contatto non può essere vuoto.');
+        }
+    }
 
     /*
      * RELATIONS
