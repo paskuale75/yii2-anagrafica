@@ -19,6 +19,8 @@ use yii\helpers\VarDumper;
  */
 class AnagraficaContatti extends \yii\db\ActiveRecord
 {
+    const EMAIL_CODE = 4;
+
     /**
      * @inheritdoc
      */
@@ -68,15 +70,25 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
         if(!empty($this->contatto_tipo_id)){
             if(empty($this->$attribute))
                 $this->addError($attribute, 'Valore non può essere vuoto.');
-        } 
+        }
+
+        if(!empty($this->$attribute) && $this->contatto_tipo_id == self::EMAIL_CODE){
+            $this->$attribute = filter_var($this->$attribute, FILTER_SANITIZE_EMAIL);
+            if(!filter_var($this->$attribute, FILTER_VALIDATE_EMAIL)) {
+                $this->addError($attribute, 'Formato indirizzo email non corretto.');
+            }
+        }
+        
     }
 
     public function myContattoTipoRule($attribute,$params)
     {
         if(!empty($this->valore)){
-            if(empty($this->attribute))
+            if(empty($this->$attribute)){
                 $this->addError($attribute, 'Tipo Contatto non può essere vuoto.');
+            }
         }
+
     }
 
     /*

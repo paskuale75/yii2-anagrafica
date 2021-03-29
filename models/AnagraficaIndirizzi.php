@@ -50,9 +50,9 @@ class AnagraficaIndirizzi extends ActiveRecord
     {
         return [
             //[['indirizzo', 'comune_hidden', 'nazione_id', 'indirizzo_tipo_id', 'cab'], 'required'],
-            [['indirizzo', 'indirizzo_tipo_id','cap','comuneNome'], 'required'],
+            [['indirizzo', 'indirizzo_tipo_id','cap', 'comuneNome'], 'required'],
             [['nazione_id', 'indirizzo_tipo_id', 'posta', 'anagrafica_id', 'user_id'], 'integer'],
-            [['last_mod','comunenome'], 'safe'],
+            [['last_mod','comunenome','indirizzo'], 'safe'],
             [['indirizzo'], 'string', 'max' => 100],
             [['comune_hidden'], 'string', 'max' => 65],
             [['cab'], 'string', 'max' => 6],
