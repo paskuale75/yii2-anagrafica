@@ -50,7 +50,7 @@ class AnagraficaIndirizzi extends ActiveRecord
     {
         return [
             //[['indirizzo', 'comune_hidden', 'nazione_id', 'indirizzo_tipo_id', 'cab'], 'required'],
-            [['indirizzo', 'indirizzo_tipo_id'], 'required'],
+            [['indirizzo', 'indirizzo_tipo_id','cap','comuneNome'], 'required'],
             [['nazione_id', 'indirizzo_tipo_id', 'posta', 'anagrafica_id', 'user_id'], 'integer'],
             [['last_mod','comunenome'], 'safe'],
             [['indirizzo'], 'string', 'max' => 100],
@@ -110,6 +110,10 @@ class AnagraficaIndirizzi extends ActiveRecord
     
     public function getComuneNome(){
         return ArrayHelper::getValue($this->comune,'comune');
+    }
+
+    public function setComuneNome($value){
+        $this->comuneNome = $value;
     }
 
 
