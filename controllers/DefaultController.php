@@ -63,4 +63,27 @@ class DefaultController extends Controller
 
         //echo json_encode($return);
     }
+
+
+    public function actionAutocomplete() {
+        $results = [];
+        $res = [];
+
+        if (isset($_GET['term'])) {
+            $qtxt = 'SELECT id,ragione_sociale_1,ragione_sociale_2,codfis FROM {{anagrafica_anagrafiche}} WHERE ragione_sociale_1 LIKE :ragso1';
+            $command = Yii::$app->db->createCommand($qtxt);
+            $command->bindValue(":ragso1", '%' . $_GET['term'] . '%', PDO::PARAM_STR);
+            $res = $command->queryAll();
+
+            foreach ($res as $p) {
+                $results[] = [
+                    'label' => $p['ragione_sociale_1'] . ' ' . $p['ragione_sociale_2'] . ' ' . $p['codfis'],
+                    'value' => $p['ragione_sociale_1'],
+                    'id' => $p['id'],
+                ];
+            }
+        }
+        echo json_encode($results);
+        Yii::$app->end();
+    }
 }
