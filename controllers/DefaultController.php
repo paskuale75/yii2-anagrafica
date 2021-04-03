@@ -4,7 +4,9 @@ namespace paskuale75\anagrafica\controllers;
 use Yii;
 use CodiceFiscale\Calculator;
 use CodiceFiscale\Subject;
+use paskuale75\anagrafica\models\Anagrafica;
 use paskuale75\comuni\models\Citta;
+use PDO;
 use yii\web\Controller;
 
 /**
@@ -70,7 +72,7 @@ class DefaultController extends Controller
         $res = [];
 
         if (isset($_GET['term'])) {
-            $qtxt = 'SELECT id,ragione_sociale_1,ragione_sociale_2,codfis FROM {{anagrafica_anagrafiche}} WHERE ragione_sociale_1 LIKE :ragso1';
+            $qtxt = 'SELECT id,ragione_sociale_1,ragione_sociale_2,codfis FROM '.Anagrafica::tableName().' WHERE ragione_sociale_1 LIKE :ragso1';
             $command = Yii::$app->db->createCommand($qtxt);
             $command->bindValue(":ragso1", '%' . $_GET['term'] . '%', PDO::PARAM_STR);
             $res = $command->queryAll();
