@@ -30,7 +30,7 @@ class DefaultController extends Controller
     {
 
         $module = $this->module;
-        $posts = Yii::$app->request->post();
+        $posts = Yii::$app->request->get();
 
         if ($flag_nazione) {
             $modelName = "Nazione"; //Nazione::class;
