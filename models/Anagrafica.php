@@ -51,8 +51,8 @@ class Anagrafica extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ragione_sociale_1', 'ragione_sociale_2', 'codfis'], 'required', 'on' => self::SCENARIO_FISICA],
-            [['ragione_sociale_1', 'codiva'], 'required', 'on' => self::SCENARIO_GIURIDICA],
+            [['ragione_sociale_1', 'ragione_sociale_2', 'codfis'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_FISICA],
+            [['ragione_sociale_1', 'codiva'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_GIURIDICA],
             [['titoli_id', 'nazione_id', 'user_id'], 'integer'],
             [['last_mod', 'ragione_sociale_1', 'ragione_sociale_2', 'codfis', 'scenario'], 'safe'],
             [['sex'], 'string', 'max' => 1],

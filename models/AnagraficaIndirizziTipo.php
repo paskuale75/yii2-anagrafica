@@ -31,7 +31,7 @@ class AnagraficaIndirizziTipo extends ActiveRecord
     public function rules()
     {
         return [
-            [['fixed'], 'required'],
+            [['fixed'], 'required', 'message' => '{attribute} è obbligatorio'],
             [['fixed', 'user_id'], 'integer'],
             [['last_mod'], 'safe'],
             [['descri'], 'string', 'max' => 45],
