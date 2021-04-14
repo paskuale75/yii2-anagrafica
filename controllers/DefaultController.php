@@ -1,4 +1,5 @@
 <?php
+
 namespace paskuale75\anagrafica\controllers;
 
 use Yii;
@@ -24,8 +25,6 @@ class DefaultController extends Controller
     }
 
 
-
-
     public function actionCalculateCf($flag_nazione = false)
     {
 
@@ -38,41 +37,46 @@ class DefaultController extends Controller
             $modelName = Citta::class;
         }
 
-        
-
         $comune = $modelName::findOne($posts['id_comune']);
 
-        //$birthDate = '1975-04-18';
-        //$_d = explode('/',$posts['birthDate']); // creo l’oggeto data
         $birthDate = $posts['birthDate'];
         $gender = strtoupper($posts['gender']);
-        $belfioreCode = $comune[$module->belFioreColumn];
+        $cognome =  $posts['surname'];
+        $nome = $posts['name'];
+        $codiceFiscale = "";
 
-        $subject = new Subject(
-            [
-                "name" => $posts['name'],
-                "surname" => $posts['surname'],
-                "birthDate" => $birthDate, //"1985-12-10",
-                "gender" => $gender,
-                "belfioreCode" => $belfioreCode
-            ]
-        );
+        if ($comune && $gender && $birthDate && $cognome && $nome) {
+            $belfioreCode = $comune[$module->belFioreColumn];
 
-        $calculator = new Calculator($subject);
-        $codiceFiscale = $calculator->calculate();
+            $subject = new Subject(
+                [
+                    "name" => $posts['name'],
+                    "surname" => $posts['surname'],
+                    "birthDate" => $birthDate, //"1985-12-10",
+                    "gender" => $gender,
+                    "belfioreCode" => $belfioreCode
+                ]
+            );
 
+            $calculator = new Calculator($subject);
+            $codiceFiscale = $calculator->calculate();
+        }
         echo $codiceFiscale; //"RSSMRA85T10A562S"
+
 
         //echo json_encode($return);
     }
 
 
-    public function actionAutocomplete() {
+
+
+    public function actionAutocomplete()
+    {
         $results = [];
         $res = [];
 
         if (isset($_GET['term'])) {
-            $qtxt = 'SELECT id,ragione_sociale_1,ragione_sociale_2,codfis FROM '.Anagrafica::tableName().' WHERE ragione_sociale_1 LIKE :ragso1';
+            $qtxt = 'SELECT id,ragione_sociale_1,ragione_sociale_2,codfis FROM ' . Anagrafica::tableName() . ' WHERE ragione_sociale_1 LIKE :ragso1';
             $command = Yii::$app->db->createCommand($qtxt);
             $command->bindValue(":ragso1", '%' . $_GET['term'] . '%', PDO::PARAM_STR);
             $res = $command->queryAll();
