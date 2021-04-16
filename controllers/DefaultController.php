@@ -43,6 +43,7 @@ class DefaultController extends Controller
         $gender = strtoupper($posts['gender']);
         $cognome =  $posts['surname'];
         $nome = $posts['name'];
+        $currAnagrafica = $posts['currAnagrafica'];
         $codiceFiscale = "";
 
         if ($comune && $gender && $birthDate && $cognome && $nome) {
@@ -61,10 +62,30 @@ class DefaultController extends Controller
             $calculator = new Calculator($subject);
             $codiceFiscale = $calculator->calculate();
         }
-        echo $codiceFiscale; //"RSSMRA85T10A562S"
 
+        $object = Anagrafica::find()
+            ->where([
+                'codfis' => $codiceFiscale
+            ])
+            ->andWhere(['<>', 'id', $currAnagrafica])
+            ->one();
 
-        //echo json_encode($return);
+        $exists = false;
+        $idPaziente = 0;
+        if ($object) {
+
+            $exists = true;
+            $idPaziente = $object->primaryKey;
+        }
+
+        $return = [
+            'exists' => $exists,
+            'codfis' => $codiceFiscale,
+            'idPaziente' => $idPaziente
+        ];
+
+        echo json_encode($return);
+        Yii::$app->end();
     }
 
 
