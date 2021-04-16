@@ -57,8 +57,8 @@ class Anagrafica extends \yii\db\ActiveRecord
             [['last_mod', 'ragione_sociale_1', 'ragione_sociale_2', 'codfis', 'scenario'], 'safe'],
             [['sex'], 'string', 'max' => 1],
             [['ruolo', 'image'], 'string', 'max' => 45],
-            [['codfis'], 'string', 'max' => 16, 'on' => self::SCENARIO_FISICA],
-            [['codiva'], 'string', 'max' => 11, 'on' => self::SCENARIO_GIURIDICA],
+            [['codfis'], 'string','min' => 16, 'max' => 16, 'on' => self::SCENARIO_FISICA],
+            [['codiva'], 'string','min' => 11, 'max' => 11, 'on' => self::SCENARIO_GIURIDICA],
             [['lang'], 'string', 'max' => 20],
         ];
     }
