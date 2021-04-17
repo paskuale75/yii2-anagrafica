@@ -25,19 +25,19 @@ class DefaultController extends Controller
     }
 
 
-    public function actionCalculateCf($flag_nazione = false)
+    public function actionCalculateCf($flgNazione = false)
     {
 
         $module = $this->module;
         $posts = Yii::$app->request->get();
 
-        if ($flag_nazione) {
-            $modelName = "Nazione"; //Nazione::class;
+        if ($flgNazione) {
+            $modelName = Nazione::class;
         } else {
             $modelName = Citta::class;
         }
 
-        $comune = $modelName::findOne($posts['id_comune']);
+        $place = $modelName::findOne($posts['id_comune']);
 
         $birthDate = $posts['birthDate'];
         $gender = strtoupper($posts['gender']);
@@ -45,9 +45,10 @@ class DefaultController extends Controller
         $nome = $posts['name'];
         $currAnagrafica = $posts['currAnagrafica'];
         $codiceFiscale = "";
+        $tag = $posts['tag'];
 
-        if ($comune && $gender && $birthDate && $cognome && $nome) {
-            $belfioreCode = $comune[$module->belFioreColumn];
+        if ($place && $gender && $birthDate && $cognome && $nome) {
+            $belfioreCode = $place[$module->belFioreColumn];
 
             $subject = new Subject(
                 [
@@ -62,12 +63,17 @@ class DefaultController extends Controller
             $calculator = new Calculator($subject);
             $codiceFiscale = $calculator->calculate();
         }
+        $tabellaJoin = 'tbl_personale';
+        if ($tag == Constants::ID_MODELLO_PAZIENTE) {
+            $tabellaJoin = 'tbl_paziente';
+        }
 
         $object = Anagrafica::find()
             ->where([
                 'codfis' => $codiceFiscale
             ])
-            ->andWhere(['<>', 'id', $currAnagrafica])
+            ->innerJoin($tabellaJoin, $tabellaJoin . '.anagrafica_id = tbl_anagrafica_anagrafiche.id')
+            ->andWhere(['<>', 'tbl_anagrafica_anagrafiche.id', $currAnagrafica])
             ->one();
 
         $exists = false;
@@ -87,7 +93,6 @@ class DefaultController extends Controller
         echo json_encode($return);
         Yii::$app->end();
     }
-
 
 
 
