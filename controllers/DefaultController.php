@@ -65,7 +65,8 @@ class DefaultController extends Controller
         }
         
         //tabelle esterne con cui fare join
-        $tabellaJoin = $module->externalTableConstant[$tag];
+        $className = new $module->externalTableConstant[$tag];
+        $tabellaJoin = $className::tableName();
 
         $object = Anagrafica::find()
             ->where([
