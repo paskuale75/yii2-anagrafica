@@ -63,10 +63,9 @@ class DefaultController extends Controller
             $calculator = new Calculator($subject);
             $codiceFiscale = $calculator->calculate();
         }
-        $tabellaJoin = 'tbl_personale';
-        if ($tag == Constants::ID_MODELLO_PAZIENTE) {
-            $tabellaJoin = 'tbl_paziente';
-        }
+        
+        //tabelle esterne con cui fare join
+        $tabellaJoin = $module->externalTableConstant[$tag];
 
         $object = Anagrafica::find()
             ->where([

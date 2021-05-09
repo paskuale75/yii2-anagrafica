@@ -22,6 +22,8 @@ class Module extends YiiModule implements BootstrapInterface
 
     public $belFioreColumn = 'cod_fisco';
 
+    public $externalTableConstant = [];
+
 
     /**
      * {@inheritdoc}
