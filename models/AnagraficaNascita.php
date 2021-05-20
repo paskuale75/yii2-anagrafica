@@ -3,6 +3,7 @@
 namespace paskuale75\anagrafica\models;
 
 use paskuale75\comuni\models\Citta;
+use paskuale75\comuni\models\Nazione;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -82,12 +83,29 @@ class AnagraficaNascita extends \yii\db\ActiveRecord
      */
 
     public function getComune(){
-        return $this->hasOne(Citta::class,['istat' => 'comune_hidden']);
+        
+        $comuneFind = Citta::findOne(['istat' => $this->comune_hidden]);
+
+        if($comuneFind){
+            $comune = $this->hasOne(Citta::class,['istat' => 'comune_hidden']);
+        } else {
+            $comune = $comune = $this->hasOne(Nazione::class,['id' => 'comune_hidden']);
+        }
+
+        return $comune;
     }
     
     public function getComuneNome(){
-        return ArrayHelper::getValue($this->comune,'comune');
+        $comuneFind = Citta::findOne(['istat' => $this->comune_hidden]);
+        
+        if($comuneFind){
+            return ArrayHelper::getValue($this->comune,'comune');
+        } 
+        
+        return ArrayHelper::getValue($this->comune,'nome_stati');
     }
+    
+    
 
     public function getAge(){
         $dateOfBirth = $this->birthdate;
