@@ -26,16 +26,17 @@ class DefaultController extends Controller
     }
 
 
-    public function actionCalculateCf($flgNazione = false)
+    public function actionCalculateCf()
     {
 
         $module = $this->module;
         $posts = Yii::$app->request->get();
 
-        if ($flgNazione) {
-            $modelName = Nazione::class;
-        } else {
+        $flgNazione = $posts['flgNazione'];
+        if ($flgNazione == "false") {
             $modelName = Citta::class;
+        } else {
+            $modelName = Nazione::class;
         }
 
         $place = $modelName::findOne($posts['id_comune']);
