@@ -45,6 +45,14 @@ class Anagrafica extends \yii\db\ActiveRecord
         return 'tbl_anagrafica_anagrafiche';
     }
 
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_FISICA => ['ragione_sociale_1', 'ragione_sociale_2', 'codfis', 'sex'],
+            self::SCENARIO_GIURIDICA => ['ragione_sociale_1', 'codiva'],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
