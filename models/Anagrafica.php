@@ -57,8 +57,8 @@ class Anagrafica extends \yii\db\ActiveRecord
             [['last_mod', 'ragione_sociale_1', 'ragione_sociale_2', 'codfis', 'scenario'], 'safe'],
             [['sex'], 'string', 'max' => 1],
             [['ruolo', 'image'], 'string', 'max' => 45],
-            [['codfis'], 'string','min' => 16, 'max' => 16, 'on' => self::SCENARIO_FISICA],
-            [['codiva'], 'string','min' => 11, 'max' => 11, 'on' => self::SCENARIO_GIURIDICA],
+            [['codfis'], 'string', 'min' => 16, 'max' => 16, 'on' => self::SCENARIO_FISICA],
+            [['codiva'], 'string', 'min' => 11, 'max' => 11, 'on' => self::SCENARIO_GIURIDICA],
             [['lang'], 'string', 'max' => 20],
         ];
     }
@@ -93,16 +93,17 @@ class Anagrafica extends \yii\db\ActiveRecord
                     'sex' => 'Sesso',
                     'ragione_sociale_1' => 'Ragione Sociale',
                     'ragione_sociale_2' => 'Nome',
-                    'codfis' => 'Cod.Fiscale',
-                    'codiva' => 'Partita Iva',
-                    'ruolo' => 'Ruolo',
-                    'titoli_id' => 'Titoli ID',
-                    'image' => 'Image',
-                    'lang' => 'Lang',
-                    'nazione_id' => 'Nazione ID',
-                    'user_id' => 'User ID',
-                    'last_mod' => 'Last Mod',
-                    'fullName' => 'Nominativo'
+                    'codfis'        => 'Cod.Fiscale',
+                    'codiva'        => 'Partita Iva',
+                    'ruolo'         => 'Ruolo',
+                    'titoli_id'     => 'Titoli ID',
+                    'image'         => 'Image',
+                    'lang'          => 'Lang',
+                    'nazione_id'    => 'Nazione ID',
+                    'user_id'       => 'User ID',
+                    'last_mod'      => 'Last Mod',
+                    'fullName'      => 'Nominativo',
+                    'comunenome'    => 'Sede'
                 ];
                 break;
         }
