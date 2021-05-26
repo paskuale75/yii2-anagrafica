@@ -103,7 +103,7 @@ class Anagrafica extends \yii\db\ActiveRecord
                     'user_id'       => 'User ID',
                     'last_mod'      => 'Last Mod',
                     'fullName'      => 'Nominativo',
-                    'comunenome'    => 'Sede'
+                    'comuneNome'    => 'Sede'
                 ];
                 break;
         }
