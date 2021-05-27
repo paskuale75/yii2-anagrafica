@@ -22,6 +22,8 @@ use yii\helpers\ArrayHelper;
  */
 class AnagraficaNascita extends \yii\db\ActiveRecord
 {
+    const SCENARIO_FISICA = 'fisica';
+    const SCENARIO_GIURIDICA = 'giuridica';
 
     /*
      * Questo viene usato per selezionare il valore
@@ -46,7 +48,8 @@ class AnagraficaNascita extends \yii\db\ActiveRecord
     {
         return [
             //[['data', 'comune_hidden', 'prov', 'nazione_id', 'cap'], 'required'],
-            [['birthdate', 'comune_hidden','comunenome'], 'required', 'message' => '{attribute} è obbligatorio'],
+            [['birthdate', 'comune_hidden','comunenome'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_FISICA],
+            [['comune_hidden','comunenome'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_GIURIDICA],
             [['birthdate','last_mod', 'comune_hidden','comunenome'], 'safe'],
             //[['nazione_id', 'anagrafica_id', 'user_id'], 'integer'],
             //[['comune_hidden'], 'string', 'max' => 65],
@@ -58,7 +61,6 @@ class AnagraficaNascita extends \yii\db\ActiveRecord
             'targetAttribute' => ['anagrafica_id' => 'id']]
         ];
     }
-
     /**
      * @inheritdoc
      */
