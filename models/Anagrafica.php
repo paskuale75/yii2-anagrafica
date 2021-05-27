@@ -53,7 +53,7 @@ class Anagrafica extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
+        /**
      * @inheritdoc
      */
     public function rules()
@@ -62,11 +62,11 @@ class Anagrafica extends \yii\db\ActiveRecord
             [['ragione_sociale_1', 'ragione_sociale_2', 'codfis'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_FISICA],
             [['ragione_sociale_1', 'codiva'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_GIURIDICA],
             [['titoli_id', 'nazione_id', 'user_id'], 'integer'],
-            [['last_mod', 'ragione_sociale_1', 'ragione_sociale_2', 'codfis', 'scenario'], 'safe'],
+            [['last_mod', 'ragione_sociale_1', 'ragione_sociale_2', 'codfis','codiva'], 'safe'],
             [['sex'], 'string', 'max' => 1],
             [['ruolo', 'image'], 'string', 'max' => 45],
-            [['codfis'], 'string', 'min' => 16, 'max' => 16, 'on' => self::SCENARIO_FISICA],
-            [['codiva'], 'string', 'min' => 11, 'max' => 11, 'on' => self::SCENARIO_GIURIDICA],
+            [['codfis'], 'string','min' => 16, 'max' => 16, 'on' => self::SCENARIO_FISICA],
+            [['codiva'], 'string','min' => 11, 'max' => 11, 'on' => self::SCENARIO_GIURIDICA],
             [['lang'], 'string', 'max' => 20],
         ];
     }
