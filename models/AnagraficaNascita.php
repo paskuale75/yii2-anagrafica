@@ -52,7 +52,7 @@ class AnagraficaNascita extends \yii\db\ActiveRecord
             [['comune_hidden','comunenome'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_GIURIDICA],
             [['birthdate','last_mod', 'comune_hidden','comunenome'], 'safe'],
             //[['nazione_id', 'anagrafica_id', 'user_id'], 'integer'],
-            //[['comune_hidden'], 'string', 'max' => 65],
+            ['comune_hidden', 'default', 'value' => '72006'],
             [['prov'], 'string', 'max' => 4],
             [['cap'], 'string', 'max' => 5],
             [['anagrafica_id'], 'exist',
