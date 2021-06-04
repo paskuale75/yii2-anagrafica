@@ -15,6 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property string $ragione_sociale_2
  * @property string $codfis
  * @property string $codiva
+ * @property string $codsdi
  * @property string $ruolo
  * @property integer $titoli_id
  * @property string $image
@@ -65,6 +66,7 @@ class Anagrafica extends \yii\db\ActiveRecord
             [['last_mod', 'ragione_sociale_1', 'ragione_sociale_2', 'codfis','codiva'], 'safe'],
             [['sex'], 'string', 'max' => 1],
             [['ruolo', 'image'], 'string', 'max' => 45],
+            [['codsdi'], 'string', 'max' => 10],
             [['codfis'], 'string','min' => 16, 'max' => 16, 'on' => self::SCENARIO_FISICA],
             [['codiva'], 'string','min' => 11, 'max' => 11, 'on' => self::SCENARIO_GIURIDICA],
             [['lang'], 'string', 'max' => 20],
@@ -103,6 +105,7 @@ class Anagrafica extends \yii\db\ActiveRecord
                     'ragione_sociale_2' => 'Nome',
                     'codfis'        => 'Cod.Fiscale',
                     'codiva'        => 'Partita Iva',
+                    'codsdi'        => 'SDI - Fatturaz Elettr.',
                     'ruolo'         => 'Ruolo',
                     'titoli_id'     => 'Titoli ID',
                     'image'         => 'Image',

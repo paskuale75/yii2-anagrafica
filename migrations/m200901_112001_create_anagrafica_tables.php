@@ -26,6 +26,7 @@ class m200901_112001_create_anagrafica_tables extends Migration
                     'ragione_sociale_2' => 'VARCHAR(45) NULL',
                     'codfis' => 'VARCHAR(16) NULL',
                     'codiva' => 'VARCHAR(11) NULL',
+                    'codsdi' => 'VARCHAR(10) NULL',
                     'ruolo' => 'VARCHAR(45) NULL',
                     'titoli_id' => 'INT(11) NULL',
                     'image' => 'VARCHAR(45) NULL',
