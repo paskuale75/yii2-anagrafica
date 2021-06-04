@@ -49,8 +49,8 @@ class Anagrafica extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            self::SCENARIO_FISICA => ['ragione_sociale_1', 'ragione_sociale_2', 'codfis', 'sex'],
-            self::SCENARIO_GIURIDICA => ['ragione_sociale_1', 'codiva'],
+            self::SCENARIO_FISICA => ['ragione_sociale_1', 'ragione_sociale_2', 'codfis', 'codsdi','sex'],
+            self::SCENARIO_GIURIDICA => ['ragione_sociale_1', 'codiva', 'codfis', 'codsdi'],
         ];
     }
 
