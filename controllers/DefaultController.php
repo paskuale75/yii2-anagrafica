@@ -80,7 +80,7 @@ class DefaultController extends Controller
 
         $exists = false;
         $idPaziente = 0;
-        if ($object) {
+        if ($object && $codiceFiscale) {
 
             $exists = true;
             $idPaziente = $object->primaryKey;
