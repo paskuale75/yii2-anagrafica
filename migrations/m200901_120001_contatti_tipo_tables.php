@@ -28,10 +28,13 @@ class m200901_120001_contatti_tipo_tables  extends Migration
 
 
         $this->execute('SET foreign_key_checks = 0');
-        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'1','descri'=>'telefono','abbr'=>'home']);
-        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'2','descri'=>'fax','abbr'=>'']);
-        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'3','descri'=>'cellulare','abbr'=>'']);
-        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'4','descri'=>'email','abbr'=>'']);
+        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'1','descri'=>'telefono','abbr'=>'tel']);
+        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'2','descri'=>'fax','abbr'=>'fax']);
+        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'3','descri'=>'cellulare','abbr'=>'cell']);
+        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'4','descri'=>'email','abbr'=>'mail']);
+        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'5','descri'=>'pec','abbr'=>'pec']);
+        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'6','descri'=>'sito web','abbr'=>'web']);
+        $this->insert('{{%tbl_anagrafica_contatti_tipo}}',['contatto_tipo_id'=>'7','descri'=>'casa','abbr'=>'home']);
         $this->execute('SET foreign_key_checks = 1;');
     }
 
