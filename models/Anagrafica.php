@@ -122,7 +122,6 @@ class Anagrafica extends \yii\db\ActiveRecord
         }
     }
 
-
     /*
      * RELATIONS
      */
@@ -140,16 +139,8 @@ class Anagrafica extends \yii\db\ActiveRecord
 
     public function getResidenza()
     {
-        $object = AnagraficaIndirizzi::find()
-            ->joinWith(['tipo it'])
-            ->where([
-                'anagrafica_id' => $this->primaryKey,
-                'it.id' => self::RESIDENZA
-            ])
-            ->orderBy('id DESC')
-            ->limit(1)
-            ->one();
-        return $object;
+        return $this->hasOne(AnagraficaIndirizzi::class, ['anagrafica_id' => 'id'])
+            ->onCondition(['indirizzo_tipo_id' => self::RESIDENZA]);
     }
 
     public function getContatti()
