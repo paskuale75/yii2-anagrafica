@@ -20,6 +20,7 @@ use yii\helpers\VarDumper;
 class AnagraficaContatti extends \yii\db\ActiveRecord
 {
     const EMAIL_CODE = 4;
+    const PEC_CODE = 5;
 
     /**
      * @inheritdoc
@@ -72,7 +73,8 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
                 $this->addError($attribute, 'Valore non può essere vuoto.');
         }
 
-        if(!empty($this->$attribute) && $this->contatto_tipo_id == self::EMAIL_CODE){
+        if(!empty($this->$attribute) && ($this->contatto_tipo_id == self::EMAIL_CODE || 
+                $this->contatto_tipo_id == self::PEC_CODE)){
             $this->$attribute = filter_var($this->$attribute, FILTER_SANITIZE_EMAIL);
             if(!filter_var($this->$attribute, FILTER_VALIDATE_EMAIL)) {
                 $this->addError($attribute, 'Formato indirizzo email non corretto.');
@@ -102,15 +104,13 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
         return $this->hasOne(AnagraficaContattiTipo::class,['contatto_tipo_id'=>'contatto_tipo_id']);
     }
 
-
-
-
     public static function getTipiFilter()
     {
         $types = AnagraficaContattiTipo::find()->all();
         $listData = ArrayHelper::map($types,'contatto_tipo_id','descri');
         return $listData;
     }
+    
     public static function getTipiFilterAsJson()
     {
         $types = AnagraficaContattiTipo::find()->all();
