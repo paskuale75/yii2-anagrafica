@@ -70,7 +70,7 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
     {
         if(!empty($this->contatto_tipo_id)){
             if(empty($this->$attribute))
-                $this->addError($attribute, 'Valore non può essere vuoto.');
+                $this->addError($attribute, 'Valore è richiesto.');
         }
 
         if(!empty($this->$attribute) && ($this->contatto_tipo_id == self::EMAIL_CODE || 
@@ -87,7 +87,7 @@ class AnagraficaContatti extends \yii\db\ActiveRecord
     {
         if(!empty($this->valore)){
             if(empty($this->$attribute)){
-                $this->addError($attribute, 'Tipo Contatto non può essere vuoto.');
+                $this->addError($attribute, 'Tipo Contatto è richiestp.');
             }
         }
 
