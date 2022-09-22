@@ -48,8 +48,8 @@ class AnagraficaNascita extends \yii\db\ActiveRecord
     {
         return [
             //[['data', 'comune_hidden', 'prov', 'nazione_id', 'cap'], 'required'],
-            [['birthdate', 'comune_hidden','comunenome'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_FISICA],
-            [['comune_hidden','comunenome'], 'required', 'message' => '{attribute} è obbligatorio', 'on' => self::SCENARIO_GIURIDICA],
+            [['birthdate', 'comune_hidden','comunenome'], 'required', 'message' => '{attribute} è richiesto', 'on' => self::SCENARIO_FISICA],
+            [['comune_hidden','comunenome'], 'required', 'message' => '{attribute} è richiesto', 'on' => self::SCENARIO_GIURIDICA],
             [['birthdate','last_mod', 'comune_hidden','comunenome','nazione_id'], 'safe'],
             //[['nazione_id', 'anagrafica_id', 'user_id'], 'integer'],
             ['comune_hidden', 'default', 'value' => '72006'],
@@ -91,7 +91,7 @@ class AnagraficaNascita extends \yii\db\ActiveRecord
         if($comuneFind){
             $comune = $this->hasOne(Citta::class,['istat' => 'comune_hidden']);
         } else {
-            $comune = $comune = $this->hasOne(Nazione::class,['id' => 'comune_hidden']);
+            $comune = $this->hasOne(Nazione::class,['id' => 'comune_hidden']);
         }
 
         return $comune;
